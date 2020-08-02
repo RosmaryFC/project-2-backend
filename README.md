@@ -13,7 +13,7 @@ Project Schedule continued in [Frontend](https://github.com/RosmaryFC/project-2-
 
 ## Project Description
 
-Link to final project: <b>WILL ADD LATER<b>
+Link to final project: <b>WILL ADD LATER</b>
 
 Introducing, Our Unit-2 project for General Assembly's SEI program.
 For Project 12, I will be creating a fullstack website for my karate school to manage students with their payments and progress.
