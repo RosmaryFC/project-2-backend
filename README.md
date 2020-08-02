@@ -5,9 +5,9 @@
 |  Day | Deliverable | Status
 |-----|----------------------------------------------| ----------|
 |Day 1 - Friday | Pre-work: Project Description                          | Complete
-|Day 1 - Friday | Pre-work: Wireframes / Priority Matrix / Timeline      | Complete
-|Day 2 - Saturday | Start backend logic                                  | Complete
-|Day 3 - Sunday | Complete backend and test                              | Complete
+|Day 1 - Friday | Pre-work: Wireframes / Priority Matrix / Timeline      | Incomplete
+|Day 2 - Saturday | Start backend logic                                  | Incomplete
+|Day 3 - Sunday | Complete backend and test                              | Incomplete
 
 Project Schedule continued in [Frontend](https://github.com/RosmaryFC/project-2-frontend)
 
