@@ -46,11 +46,14 @@ Student Schema
     past due: // true or false
     past due balance:
     current balance: 
-    is insured: // true or false
-    insurance renewal date:
+    is insured: // true or false //?? might remove
+    insurance renewal date: //??might remove
   }
-  attendance: ?? might remove
-  parent/guardian: []
+  attendance: //?? might remove
+  parent/guardian: [{
+    guardian:
+    relationship //mother, father, aunt, emergency
+  }]
 }
 
 Parent Schenma
@@ -62,7 +65,7 @@ Parent Schenma
     email:
     address:
   }
-  prefferred communication: {
+  prefferred communication: { //??might remove
     email: //true or false
     whatsapp: true or false
     text: // true or false
@@ -146,3 +149,7 @@ This section will include a brief code snippet of functionality that I am proud 
  This section will list all major issues encountered and their resolution.
 
 * STILL BEING WORKED ON
+
+* Issue: a parent can also be a student, but I shouldn't have to create a document for a parent if they are a student, like there shouldn't be a duplicate of a parent as well as a student for the same person. it should reference the same account. I'm not sure how to go about that yet.
+   * A student can also be a guardian of other students
+   * but there are guardians that are not students
