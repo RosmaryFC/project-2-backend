@@ -5,8 +5,8 @@
 |  Day | Deliverable | Status
 |-----|----------------------------------------------| ----------|
 |Day 1 - Friday | Pre-work: Project Description                          | Complete
-|Day 1 - Friday | Pre-work: Wireframes / Priority Matrix / Timeline      | Incomplete
-|Day 2 - Saturday | Start backend logic                                  | Incomplete
+|Day 1 - Friday | Pre-work: Wireframes / Priority Matrix / Timeline      | Complete
+|Day 2 - Saturday | Start backend logic                                  | Complete
 |Day 3 - Sunday | Complete backend and test                              | Incomplete
 
 Project Schedule continued in [Frontend](https://github.com/RosmaryFC/project-2-frontend)
@@ -32,6 +32,11 @@ Student Schema
   last name:
   date Of birth:
   rank:
+  contact info: {
+    phone number:
+    email:
+    address:
+  }
   billing: {
     plan: /// 1 month, 6 months, 1 year
     start date: 
@@ -52,10 +57,11 @@ Parent Schenma
 {
   first name:
   last name:
-  cell number:
-  home number:
-  email:
-  address:
+  contact info: {
+    phone number:
+    email:
+    address:
+  }
   prefferred communication: {
     email: //true or false
     whatsapp: true or false
@@ -131,12 +137,12 @@ I've broken down each part of the backend to smaller tasks below.
 
 ## Code Snippet
 
-Use this section to include a brief code snippet of functionality that you are proud of an a brief description  
+This section will include a brief code snippet of functionality that I am proud of and a brief description  
 
 * STILL BEING WORKED ON
 
 
 ## Issues and Resolutions
- Use this section to list of all major issues encountered and their resolution.
+ This section will list all major issues encountered and their resolution.
 
 * STILL BEING WORKED ON
