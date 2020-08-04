@@ -25,7 +25,8 @@ const guardianSchema = new Schema (
         },
         students:[{
             type: Schema.Types.ObjectId,
-            ref: 'records'
+            ref: 'students',
+            required: true
           }]
     }
 );

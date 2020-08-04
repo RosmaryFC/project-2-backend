@@ -57,23 +57,40 @@ const findAllGuardians = async (req,res) => {
     }
 }
 
+const findGuardianByID = async (req,res) => {
+    try{
+        const guardian = await Guardian.findById(req.params.id);
+        console.log('guardian', guardian)
+        console.log('guardian type', typeof(guardian))
+        console.log('student type', typeof(guardian.students))
+        console.log('students element type', typeof(guardian.students[0]))
+        res.status(200).send(guardian);
+    }catch(error){
+        res.status(400).send(error);
+    }
+}
+
+
+
 const createGuardian = async (req,res) => {
     try{
         //iterate throught students arr
-        req.body.students.forEach( student => {
-            const nameSplit = student.split(" ");
+        // req.body.students.forEach( async student => {
+        //     //split full name to firstName and lastName
+        //     const nameSplit = student.split(" ");
+        //     console.log(nameSplit)
 
-            //find student document with matching name
-            let studentDoc = await Student.find({
-                $and: {
-                    firstName: nameSplit[0],
-                    lastName: nameSplit[1]
-                }
-            })
+        //     //find student document with matching name
+        //     let studentDoc = await Student.find({
+        //         $and: {
+        //             firstName: nameSplit[0],
+        //             lastName: nameSplit[1]
+        //         }
+        //     })
 
-            // replace name in list of students with ID in guardian
-            student = studentDoc._id    
-        })
+        //     // replace name in list of students with ID in guardian
+        //     student = studentDoc._id    
+        // })
 
         console.log(req.body)
 
@@ -82,8 +99,8 @@ const createGuardian = async (req,res) => {
 
 
 
-        const allGuardians = await Guardian.find({}).sort({firstName:1});
-        res.status(200).send(allGuardians);
+        // const allGuardians = await Guardian.find({}).sort({firstName:1});
+        res.status(200).send(newGuardian);
     }catch(error){
         res.status(400).send(error);
     }
@@ -109,4 +126,4 @@ const createGuardian = async (req,res) => {
 
 
 module.exports = {findAllStudents, createStudent, updateStudent, deleteStudent,
-                    findAllGuardians, createGuardian};
+                    findAllGuardians, findGuardianByID, createGuardian };

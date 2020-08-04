@@ -1,4 +1,5 @@
 const mongoose = require ('mongoose');
+const guardianSchema = require('./guardian');
 const {Schema, model} = mongoose;
 
 
@@ -63,20 +64,10 @@ const studentSchema = new Schema (
                 required: true
             }
         },
-        guardians:[
-            {
-                guardianId:{
-                    type: Schema.Types.ObjectId,
-                    ref: 'parents'
-                },
-                fullName: {
-                    type: String
-                },
-               relationship: {
-                   type: String
-               }
-            }
-        ]
+        guardians:[{
+            type: Schema.Types.ObjectId,
+            ref: 'students'  
+        }]
     }
 );
 
