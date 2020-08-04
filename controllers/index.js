@@ -48,17 +48,40 @@ const deleteStudent = async (req,res) => {
 
 //GUARDIAN CONTROLLERS
 
-// const findAllGuardians = async (req,res) => {
-//     try{
-//         res.status(200).send();
-//     }catch(error){
-//         res.status(400).send(error);
-//     }
-// }
+const findAllGuardians = async (req,res) => {
+    try{
+        const allGuardians = await Guardian.find({}).sort({firstName:1});
+        res.status(200).send(allGuardians);
+    }catch(error){
+        res.status(400).send(error);
+    }
+}
 
 const createGuardian = async (req,res) => {
     try{
+        //iterate throught students arr
+        req.body.students.forEach( student => {
+            const nameSplit = student.split(" ");
+
+            //find student document with matching name
+            let studentDoc = await Student.find({
+                $and: {
+                    firstName: nameSplit[0],
+                    lastName: nameSplit[1]
+                }
+            })
+
+            // replace name in list of students with ID in guardian
+            student = studentDoc._id    
+        })
+
+        console.log(req.body)
+
+        //create Guardian
         const newGuardian = await Guardian.create(req.body)
+
+
+
         const allGuardians = await Guardian.find({}).sort({firstName:1});
         res.status(200).send(allGuardians);
     }catch(error){
@@ -86,4 +109,4 @@ const createGuardian = async (req,res) => {
 
 
 module.exports = {findAllStudents, createStudent, updateStudent, deleteStudent,
-                    createGuardian};
+                    findAllGuardians, createGuardian};

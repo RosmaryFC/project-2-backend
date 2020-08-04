@@ -1,6 +1,7 @@
 const express = require('express');
 const router =  express.Router();
-const {findAllStudents, createStudent, updateStudent, deleteStudent, createGuardian} = require('../controllers/index');
+const {findAllStudents, createStudent, updateStudent, deleteStudent, 
+    findAllGuardians, createGuardian} = require('../controllers/index');
 
 //test conneciton
 // router.get('/', (req,res) => {
@@ -18,6 +19,8 @@ router.put('/students/:id', updateStudent);
 router.delete('/students/:id', deleteStudent);
 
 //GUARDIAN ROUTERS
+router.get('/guardians', findAllGuardians);
+
 router.post('/guardians', createGuardian);
 
 
