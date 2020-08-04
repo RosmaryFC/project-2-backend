@@ -20,7 +20,7 @@ const createStudent = async (req,res) => {
     try{
         const newStudent = await Student.create(req.body);
         const allStudents = await Student.find({}).sort({firstName:1});
-        res.status(200).send(allStudents);
+        res.status(200).json(allStudents);
     }catch(error){
         res.status(400).send(error);
     }
@@ -30,7 +30,7 @@ const updateStudent = async (req,res) => {
     try{
         const student = await Student.findByIdAndUpdate(req.params.id, req.body, {new:true})
         const allStudents = await Student.find({}).sort({firstName:1});
-        res.status(200).send(allStudents);
+        res.status(200).json(allStudents);
     }catch(error){
         res.status(400).send(error);
     }
@@ -40,31 +40,32 @@ const deleteStudent = async (req,res) => {
     try{
         const deleteStudent = await Student.findByIdAndDelete(req.params.id);
         const allStudents = await Student.find({}).sort({firstName:1});
-        res.status(200).send(allStudents);
+        res.status(200).json(allStudents);
     }catch(error){
         res.status(400).send(error);
     }
 }
 
-//GUARDIAN CONTROLLERS
+//------------------------------GUARDIAN CONTROLLERS
 
 const findAllGuardians = async (req,res) => {
     try{
-        const allGuardians = await Guardian.find({}).sort({firstName:1});
-        res.status(200).send(allGuardians);
+        const allGuardians = await Guardian.find({}).populate("students");
+        res.status(200).json(allGuardians);
     }catch(error){
         res.status(400).send(error);
     }
 }
 
+//TODO: find out why .populate does not work and causes 404 error
 const findGuardianByID = async (req,res) => {
     try{
-        const guardian = await Guardian.findById(req.params.id);
-        console.log('guardian', guardian)
-        console.log('guardian type', typeof(guardian))
-        console.log('student type', typeof(guardian.students))
-        console.log('students element type', typeof(guardian.students[0]))
-        res.status(200).send(guardian);
+        const findGuardian = await Guardian.findById(req.params.id);
+        console.log('guardian', findGuardian)
+        console.log('guardian type', typeof(findGuardian))
+        console.log('student type', typeof(findGuardian.students))
+        console.log('students element type', typeof(findGuardian.students[0]))
+        res.status(200).json(findGuardian);
     }catch(error){
         res.status(400).send(error);
     }
@@ -92,15 +93,12 @@ const createGuardian = async (req,res) => {
         //     student = studentDoc._id    
         // })
 
-        console.log(req.body)
 
         //create Guardian
         const newGuardian = await Guardian.create(req.body)
 
-
-
         // const allGuardians = await Guardian.find({}).sort({firstName:1});
-        res.status(200).send(newGuardian);
+        res.status(200).json(newGuardian);
     }catch(error){
         res.status(400).send(error);
     }

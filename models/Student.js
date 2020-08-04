@@ -1,5 +1,5 @@
 const mongoose = require ('mongoose');
-const guardianSchema = require('./guardian');
+// const guardianSchema = require('./guardian');
 const {Schema, model} = mongoose;
 
 
@@ -66,7 +66,7 @@ const studentSchema = new Schema (
         },
         guardians:[{
             type: Schema.Types.ObjectId,
-            ref: 'students'  
+            ref: 'Guardian'  
         }]
     }
 );
