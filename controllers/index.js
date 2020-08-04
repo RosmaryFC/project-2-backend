@@ -2,7 +2,7 @@ const Student = require ('../models/student')
 const Guardian = require ('../models/guardian')
 
 //STUDENT CONTROLLERS
-//TODO: find out why it cannot get a response 
+//TODO: find out why it cannot get a response and why it hangs
 const findAllStudents = async (req,res) => {
     try {
         //sort alphabetically by last name
