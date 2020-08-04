@@ -23,7 +23,7 @@ const guardianSchema = new Schema (
                 type: String,
             }
         },
-        student:[{
+        students:[{
             type: Schema.Types.ObjectId,
             ref: 'records'
           }]

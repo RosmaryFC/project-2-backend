@@ -30,6 +30,7 @@ const studentSchema = new Schema (
             },
             address: {
                 type: String,
+                required: true,
             }
         },
         billing: {
@@ -41,7 +42,7 @@ const studentSchema = new Schema (
                 type: Date,
                 required: true
             },
-            RenewalDate:{
+            renewalDate:{
                 type: Date,
                 required: true
             },
@@ -64,9 +65,12 @@ const studentSchema = new Schema (
         },
         guardians:[
             {
-                guardian:{
+                guardianId:{
                     type: Schema.Types.ObjectId,
                     ref: 'parents'
+                },
+                fullName: {
+                    type: String
                 },
                relationship: {
                    type: String

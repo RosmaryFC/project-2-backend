@@ -114,16 +114,14 @@ I've broken down each part of the backend to smaller tasks below.
 
 | Component                                  | Priority | Estimated Time | Time Invested  | Actual Time |
 | ---                                        | :---:    |  :---:         | :---:          | :---:       |
-| Initial Setup/ boilerplate code            | H        | 1hr            | -hr            | -hr         |
-| Seed Data                                  | H        | 1hr            | -hr            | -hr         |
-| Create Models for students                 | H        | 1hr            | -hr            | -hr         |
-| Create Models for parents                  | H        | 1hr            | -hr            | -hr         |
+| Initial Setup/ boilerplate code            | H        | 1hr            | .5hr            | -hr         |
+| Seed Data                                  | H        | 1hr            | 9hr            | -hr         |
+| Create Models for students                 | H        | 1hr            | .5hr            | -hr         |
+| Create Models for parents                  | H        | 1hr            | .5hr            | -hr         |
 | Create Controller for students             | H        | 1hr            | -hr            | -hr         |
 | Create Controller for parents              | H        | 1hr            | -hr            | -hr         |
 | Create Routes for students                 | H        | 1hr            | -hr            | -hr         |
 | Create Routes for parents                  | H        | 1hr            | -hr            | -hr         |
-| Create Models for students                 | H        | 1hr            | -hr            | -hr         |
-| Create Models for parents                  | H        | 1hr            | -hr            | -hr         |
 | Test routes for students                   | H        | 2hr            | -hr            | -hr         |
 | Test routes for parents                    | H        | 2hr            | -hr            | -hr         |
 | Total                                      |          | 14hrs          | -hr            | -hr         |

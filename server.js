@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const cors = require('cors');
-//TODO: import router here
+const routes = require('./routes/index');
 
 
 //GLOBAL VARIABLES
@@ -35,7 +35,7 @@ app.use(express.static("public"));
 
 
 //ROUTES
-//TODO: add routes here
+app.use('/',routes);
 
 
 

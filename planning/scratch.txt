@@ -1,0 +1,26 @@
+//issues, can't seed guardians
+//routes are hanging
+
+
+
+    {
+        "firstName": "bobby",
+        "lastName": "rodriguez",
+        "dateOfBirth": "01-01-2010",
+        "rank": "10th kyu",
+        "contactInfo": {
+            "phoneNumber": "111-111-1114",
+            "email":"fakeemail@email.com",
+            "address":"1111 one street, apt 1, corona, ny 11368"
+        },
+        "billing": {
+            "plan": 12,
+            "startDate": "01-01-2020",
+            "renewalDate": "01-01-2021",
+            "monthlyDueDate": 1,
+            "monthlyFee": 75,
+            "pastDueBalance": 0,
+            "currentBalance": 75
+        },
+        "guardians": []
+    }
