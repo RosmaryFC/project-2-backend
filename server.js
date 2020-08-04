@@ -11,6 +11,7 @@ const routes = require('./routes/index');
 const PORT = process.env.PORT;
 const NODE_ENV = process.env.NODE_ENV;
 
+
 // CORS SECURITY CONFIGURATIONS
 const whitelist = ["http://localhost:3000/", "http://example2.com"];
 const corsOptions = {
