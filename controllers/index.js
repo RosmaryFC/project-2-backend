@@ -1,8 +1,8 @@
 //connect to mongo even though var is not being used
-const db = require('../db/index');
+const db = require('../db/index.js');
 //pass in Schemas
-const Student = require ('../models/student')
-const Guardian = require ('../models/guardian')
+const Student = require ('../models/student.js')
+const Guardian = require ('../models/guardian.js')
 
 //STUDENT CONTROLLERS
 const findAllStudents = async (req,res) => {

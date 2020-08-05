@@ -1,5 +1,4 @@
 const mongoose = require ('mongoose');
-// const guardianSchema = require('./guardian');
 const {Schema, model} = mongoose;
 
 

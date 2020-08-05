@@ -4,16 +4,16 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const cors = require('cors');
-const routes = require('./routes/index');
+const routes = require('./routes/index.js');
 
 
 //GLOBAL VARIABLES
 const PORT = process.env.PORT;
 const NODE_ENV = process.env.NODE_ENV;
 
-
+//TODO:add netlify url to whitelist
 // CORS SECURITY CONFIGURATIONS
-const whitelist = ["http://localhost:3000/", "http://example2.com"];
+const whitelist = ["http://localhost:3000/", "https://project-2-karate.herokuapp.com/"];
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {

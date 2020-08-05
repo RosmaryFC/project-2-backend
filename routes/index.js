@@ -1,7 +1,7 @@
 const express = require('express');
 const router =  express.Router();
 const {findAllStudents, createStudent, updateStudent, deleteStudent, 
-    findAllGuardians, findGuardianByID, createGuardian, updateGuardian, deleteGuardian} = require('../controllers/index');
+    findAllGuardians, findGuardianByID, createGuardian, updateGuardian, deleteGuardian} = require('../controllers/index.js');
 
 //test conneciton
 router.get('/', (req,res) => {
