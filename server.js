@@ -38,6 +38,9 @@ app.use(express.static("public"));
 //ROUTES
 app.use('/',routes);
 
+app.get('/', (req,res) => {
+  res.send('routes working');
+})
 
 
 //LISTENER
