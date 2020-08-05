@@ -50,7 +50,7 @@ const deleteStudent = async (req,res) => {
 
 const findAllGuardians = async (req,res) => {
     try{
-        const allGuardians = await Guardian.find({}).populate("students");
+        const allGuardians = await Guardian.find({});
         res.status(200).json(allGuardians);
     }catch(error){
         res.status(400).send(error);
@@ -60,7 +60,7 @@ const findAllGuardians = async (req,res) => {
 //TODO: find out why .populate does not work and causes 404 error
 const findGuardianByID = async (req,res) => {
     try{
-        const findGuardian = await Guardian.findById(req.params.id);
+        const findGuardian = await Guardian.findById(req.params.id).populate("students");
         console.log('guardian', findGuardian)
         console.log('guardian type', typeof(findGuardian))
         console.log('student type', typeof(findGuardian.students))
@@ -75,27 +75,48 @@ const findGuardianByID = async (req,res) => {
 
 const createGuardian = async (req,res) => {
     try{
-        //iterate throught students arr
-        // req.body.students.forEach( async student => {
-        //     //split full name to firstName and lastName
-        //     const nameSplit = student.split(" ");
-        //     console.log(nameSplit)
+        const guardianReqBody = req.body;
 
-        //     //find student document with matching name
-        //     let studentDoc = await Student.find({
-        //         $and: {
-        //             firstName: nameSplit[0],
-        //             lastName: nameSplit[1]
-        //         }
-        //     })
+        for (let i = 0; i < guardianReqBody.students.length; i++) {
+            const student = guardianReqBody.students[i];
+            console.log('student', student)
 
-        //     // replace name in list of students with ID in guardian
-        //     student = studentDoc._id    
-        // })
+            //split full name to firstName and lastName
+            const nameSplit = student.split(" ");
+            console.log('nameSplit', nameSplit)
+
+            //find student document with matching name
+            let studentDoc = await Student.findOne({
+                $and: [
+                    {firstName: nameSplit[0]},
+                    {lastName: nameSplit[1]}
+                ]
+            })
+
+            console.log('studentDoc', studentDoc);
+            console.log('studentDocID', studentDoc._id);
+
+            // replace name in list of students with student ID in guardian
+            guardianReqBody.students[i] = studentDoc._id;    
+            console.log('guardianReqBody', guardianReqBody);
+        }
 
 
         //create Guardian
-        const newGuardian = await Guardian.create(req.body)
+        const newGuardian = await Guardian.create(guardianReqBody);
+        console.log('newGuardian', newGuardian);
+
+        for(let i = 0; i < guardianReqBody.students.length; i++) {
+            //find student document with matching name
+            let studentDoc = await Student.findById(guardianReqBody.students[i]);
+            console.log('studentDoc:' + studentDoc);
+
+            console.log('new guardian id', newGuardian._id);
+
+            //push Guardian ID to student.guardians array
+            await studentDoc.guardians.push(newGuardian._id);
+            await studentDoc.save()
+        }
 
         // const allGuardians = await Guardian.find({}).sort({firstName:1});
         res.status(200).json(newGuardian);
@@ -104,24 +125,27 @@ const createGuardian = async (req,res) => {
     }
 }
 
-// const updateGuardian = async (req,res) => {
-//     try{
-//         res.status(200).send();
-//     }catch(error){
-//         res.status(400).send(error);
-//     }
-// }
+const updateGuardian = async (req,res) => {
+    try{
+        const findGuardian = await Guardian.findByIdAndUpdate(req.params.id, req.body, {new:true});
 
-// const deleteGuardian = async (req,res) => {
-//     try{
-//         res.status(200).send();
-//     }catch(error){
-//         res.status(400).send(error);
-//     }
-// }
+        res.status(200).send(findGuardian);
+    }catch(error){
+        res.status(400).send(error);
+    }
+}
+
+const deleteGuardian = async (req,res) => {
+    try{
+        const deleteGuardian = await Guardian.findByIdAndDelete(req.params.id);
+        res.status(200).send(deleteGuardian);
+    }catch(error){
+        res.status(400).send(error);
+    }
+}
 
 
 
 
 module.exports = {findAllStudents, createStudent, updateStudent, deleteStudent,
-                    findAllGuardians, findGuardianByID, createGuardian };
+                    findAllGuardians, findGuardianByID, createGuardian, updateGuardian, deleteGuardian };

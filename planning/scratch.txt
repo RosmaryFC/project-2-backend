@@ -37,3 +37,86 @@
     },
     "students": ["jenny rodriguez", "jason rodriguez"]
     }
+
+
+     
+        //-----------------------------------
+
+        // //iterate throughstudents arr
+        // await Promise.all(guardianReqBody.students.map(async (student) => {
+        //     //split full name to firstName and lastName
+        //     const nameSplit = student.split(" ");
+        //     console.log('nameSplit', nameSplit)
+
+        //     //find student document with matching name
+        //     let studentDoc = await Student.find({
+        //         $and: [
+        //             {firstName: nameSplit[0]},
+        //             {lastName: nameSplit[1]}
+        //         ]
+        //     })
+
+        //     console.log('studentDoc', studentDoc);
+
+        //     // replace name in list of students with student ID in guardian
+        //     student = studentDoc._id;    
+        // }))
+        // console.log('guardianReqBody', guardianReqBody);
+
+        // //create Guardian
+        // const newGuardian = await Guardian.create(guardianReqBody);
+
+        // //push Guardian to students
+        // await Promise.all(guardianReqBody.students.map(async (student => {
+        //      //find student document with matching name
+        //      let studentDoc = await Student.findOne({
+        //         $and: {
+        //             firstName: nameSplit[0],
+        //             lastName: nameSplit[1]
+        //         }
+        //     })
+
+        //     //push Guardian ID to student.guardians array
+        //     await studentDoc.guardians.push(newGuardian._id);
+        //     await studentDoc.save()
+        // })))
+
+//--------------------------------------------------------
+
+        // //iterate through students arr
+        // guardianReqBody.students.forEach( async student => {
+        //     //split full name to firstName and lastName
+        //     const nameSplit = student.split(" ");
+        //     console.log('nameSplit', nameSplit)
+
+        //     //find student document with matching name
+        //     let studentDoc = await Student.find({
+        //         $and: {
+        //             firstName: nameSplit[0],
+        //             lastName: nameSplit[1]
+        //         }
+        //     })
+
+        //     console.log('studentDoc', studentDoc._id);
+
+        //     // replace name in list of students with student ID in guardian
+        //     student = studentDoc._id;    
+        // })
+        // console.log('guardianReqBody', guardianReqBody);
+
+        //create Guardian
+        // const newGuardian = await Guardian.create(guardianReqBody);
+
+        // guardianReqBody.students.forEach( async student => {
+        //     //find student document with matching name
+        //     let studentDoc = await Student.findOne({
+        //         $and: {
+        //             firstName: nameSplit[0],
+        //             lastName: nameSplit[1]
+        //         }
+        //     })
+
+        //     //push Guardian ID to student.guardians array
+        //     await studentDoc.guardians.push(newGuardian._id);
+        //     await studentDoc.save()
+        // })

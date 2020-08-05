@@ -153,4 +153,109 @@ This section will include a brief code snippet of functionality that I am proud 
    * but there are guardians that are not students
 
 * ISSUE: My routes were hanging and it was because I removed the connection to Mongodb. I didn't realized that although the variable ``` const db = require('../db/index'); ``` was not being used, it still calls the database info.
-* 
+  
+* ISSUE: Whenever I used the .populate() function, it would return a 404. 
+```         
+const findGuardian = await Guardian.findById(req.params.id).populate("students");
+```
+The issue was in my Schema for guardian and student. I had this:
+
+```
+        students:[{
+            type: Schema.Types.ObjectId,
+            ref: 'students',
+            required: true
+        }]
+```
+and so that Mongoose would add another s to 'students' which made the reference 'studentss'. I deleted fixed my references according to the documentation which is:
+```
+        students:[{
+            type: Schema.Types.ObjectId,
+            ref: 'Student',
+            required: true
+        }]
+```
+Then I deleted my database and started from scratch
+
+
+* ISSUE: my crearteGuardian wasn't working and I realized it was because certain parts would skip ahead and not wait for things speaking to the database.
+
+```
+const createGuardian = async (req,res) => {
+    try{
+        const guardianReqBody = req.body;
+        //iterate through students arr
+        guardianReqBody.students.forEach( async student => {
+            //split full name to firstName and lastName
+            const nameSplit = student.split(" ");
+            console.log('nameSplit', nameSplit)
+
+            //find student document with matching name
+            let studentDoc = await Student.find({
+                $and: {
+                    firstName: nameSplit[0],
+                    lastName: nameSplit[1]
+                }
+            })
+
+            console.log('studentDoc', studentDoc._id);
+
+            // replace name in list of students with student ID in guardian
+            student = studentDoc._id;    
+        })
+        console.log('guardianReqBody', guardianReqBody);
+
+        //create Guardian
+        const newGuardian = await Guardian.create(guardianReqBody);
+
+        guardianReqBody.students.forEach( async student => {
+            //find student document with matching name
+            let studentDoc = await Student.findOne({
+                $and: {
+                    firstName: nameSplit[0],
+                    lastName: nameSplit[1]
+                }
+            })
+
+            //push Guardian ID to student.guardians array
+            await studentDoc.guardians.push(newGuardian._id);
+            await studentDoc.save()
+        })
+
+        // const allGuardians = await Guardian.find({}).sort({firstName:1});
+        res.status(200).json(newGuardian);
+    }catch(error){
+        res.status(400).send(error);
+    }
+}
+
+```
+
+I learned that for each loops cannot work with async or await. Instead a map function would do. This runs things in parallel, but I also realized that my student = studentDoc._id line was not updating the value in the guardianReqBody variable.
+
+```
+//iterate throughstudents arr
+        await Promise.all(guardianReqBody.students.map(async (student) => {
+            //split full name to firstName and lastName
+            const nameSplit = student.split(" ");
+            console.log('nameSplit', nameSplit)
+
+            //find student document with matching name
+            let studentDoc = await Student.find({
+                $and: [
+                    {firstName: nameSplit[0]},
+                    {lastName: nameSplit[1]}
+                ]
+            })
+
+            console.log('studentDoc', studentDoc);
+
+            // replace name in list of students with student ID in guardian
+            student = studentDoc._id;    
+        }))
+        console.log('guardianReqBody', guardianReqBody);
+
+        //create Guardian
+        const newGuardian = await Guardian.create(guardianReqBody);
+
+```
