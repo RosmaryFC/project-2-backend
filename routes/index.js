@@ -4,9 +4,9 @@ const {findAllStudents, createStudent, updateStudent, deleteStudent,
     findAllGuardians, findGuardianByID, createGuardian, updateGuardian, deleteGuardian} = require('../controllers/index');
 
 //test conneciton
-// router.get('/', (req,res) => {
-//     res.send('routes working');
-// })
+router.get('/', (req,res) => {
+    res.send('routes working');
+})
 
 //STUDENT ROUTERS
 
