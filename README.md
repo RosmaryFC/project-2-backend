@@ -154,7 +154,8 @@ This section will include a brief code snippet of functionality that I am proud 
 
 * ISSUE: My routes were hanging and it was because I removed the connection to Mongodb. I didn't realized that although the variable ``` const db = require('../db/index'); ``` was not being used, it still calls the database info.
   
-* ISSUE: Whenever I used the .populate() function, it would return a 404. 
+* ISSUE: Whenever I used the .populate() function, it would return a 404.
+REF: [Link](https://mongoosejs.com/docs/populate.html)
 ```         
 const findGuardian = await Guardian.findById(req.params.id).populate("students");
 ```
@@ -232,6 +233,7 @@ const createGuardian = async (req,res) => {
 ```
 
 I learned that for each loops cannot work with async or await. Instead a map function would do. This runs things in parallel, but I also realized that my student = studentDoc._id line was not updating the value in the guardianReqBody variable.
+REF: [Link](https://stackoverflow.com/questions/37576685/using-async-await-with-a-foreach-loop?answertab=active#tab-top)
 
 ```
 //iterate throughstudents arr
@@ -258,4 +260,18 @@ I learned that for each loops cannot work with async or await. Instead a map fun
         //create Guardian
         const newGuardian = await Guardian.create(guardianReqBody);
 
+```
+
+
+
+
+
+* ISSUE: When deploying backend to heroku and running, error appears
+
+```
+2020-08-05T05:07:33.888736+00:00 app[web.1]: Error: Cannot find module '../models/student.js'
+2020-08-05T05:07:33.888736+00:00 app[web.1]: Require stack:
+2020-08-05T05:07:33.888737+00:00 app[web.1]: - /app/controllers/index.js
+2020-08-05T05:07:33.888737+00:00 app[web.1]: - /app/routes/index.js
+2020-08-05T05:07:33.888738+00:00 app[web.1]: - /app/server.js
 ```

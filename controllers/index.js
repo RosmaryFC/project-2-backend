@@ -57,7 +57,6 @@ const findAllGuardians = async (req,res) => {
     }
 }
 
-//TODO: find out why .populate does not work and causes 404 error
 const findGuardianByID = async (req,res) => {
     try{
         const findGuardian = await Guardian.findById(req.params.id).populate("students");
