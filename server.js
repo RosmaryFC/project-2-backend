@@ -106,7 +106,7 @@ app.use(morgan("dev")); // Enables Morgan logging, creating more useful terminal
 app.use(express.static("public")); //Allows static serving of files from public folder
 
 
-// ROUTES AND ROUTERS
+// ROUTES AND ROUTERSs
 //These handle sending responses to server requests for spefic endpoints
  app.use('/',routes);
 
