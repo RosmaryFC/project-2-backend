@@ -35,6 +35,7 @@ app.use(express.static("public"));
 
 
 //ROUTES
+app.use((req, res, next) => {  res.header('Access-Control-Allow-Origin', '*');  next();});
 app.use('/',routes);
 
 //used to test on heroku but failed
