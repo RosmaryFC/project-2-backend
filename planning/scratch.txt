@@ -1,6 +1,5 @@
- MONGODB_URI="mongodb+srv://user:password12345@cluster0.kefo8.mongodb.net/karate?retryWrites=true"
 
-heroku logs --tail --app=project-2-karate
+heroku logs --tail --app=project-2-backend
 
 
 //issues, can't seed guardians
