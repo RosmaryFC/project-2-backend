@@ -40,9 +40,9 @@ app.use(express.static("public"));
 app.use('/',routes);
 
 //used to test on heroku but failed
-// app.get('/', (req,res) => {
-//   res.send('routes working');
-// })
+app.get('/', (req,res) => {
+  res.send('routes working');
+})
 
 
 //LISTENER
