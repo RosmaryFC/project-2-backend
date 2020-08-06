@@ -57,7 +57,7 @@ const app = express();
 const morgan = require("morgan"); 
 const cors = require("cors"); 
 const mongoose = require("mongoose"); 
-const router = require('./routes/index')
+const routes = require('./routes/index')
 
 //GlOBAL VARIABLES
 
@@ -66,7 +66,6 @@ const NODE_ENV = process.env.NODE_ENV;
 const mongoURI = process.env.MONGODB_URI;
 const db = mongoose.connection; 
 const mongoConfigObject = { useNewUrlParser: true, useUnifiedTopology: true }; 
-
 
 //CONNECT TO DATABASE
 // Code for connecting to our mongo database
