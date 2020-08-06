@@ -5,6 +5,7 @@ const app = express();
 const morgan = require('morgan');
 const cors = require('cors');
 const routes = require('./routes/index.js');
+const db = require('./db/index')
 
 
 //GLOBAL VARIABLES
