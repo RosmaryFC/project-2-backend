@@ -11,9 +11,8 @@ const routes = require('./routes/index.js');
 const PORT = process.env.PORT;
 const NODE_ENV = process.env.NODE_ENV;
 
-//TODO:add netlify url to whitelist
 // CORS SECURITY CONFIGURATIONS
-const whitelist = ["http://localhost:3000/", "https://project-2-karate.herokuapp.com/"];
+const whitelist = ["http://localhost:3000/", "https://project-2-backend.herokuapp.com/", "https://hiraldokai-management.netlify.app/"];
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
