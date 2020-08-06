@@ -36,6 +36,7 @@ const updateStudent = async (req,res) => {
     }
 }
 
+//TODO: delete the reference of the student in any guardians, If guardian has no reference to students anymore, delete guardian
 const deleteStudent = async (req,res) => {
     try{
         const deleteStudent = await Student.findByIdAndDelete(req.params.id);
@@ -134,9 +135,22 @@ const updateGuardian = async (req,res) => {
     }
 }
 
+//TODO: remove the references of guardians in students
 const deleteGuardian = async (req,res) => {
     try{
         const deleteGuardian = await Guardian.findByIdAndDelete(req.params.id);
+        // const studentsArr = deleteGuardian.students;
+        // console.log('studentsArr',studentsArr);
+        // for(let i = 0; i < studentsArr.length; i++) {
+        //     console.log('studentID', studentsArr[i]);
+        //     const student = await Student.findByIdAndUpdate(studentsArr[i]);
+        //     const guardiansArr = await student.guardians;
+        //     for(let j = 0; j < guardiansArr.length; j++){
+        //         if(guardiansArr[j] == deleleteGuardian._id){
+        //             await student.guardians.splice(j, 1);
+        //         }
+        //     }
+        // }
         res.status(200).send(deleteGuardian);
     }catch(error){
         res.status(400).send(error);

@@ -1,4 +1,4 @@
-require('dotenv').config();
+// require('dotenv').config();
 // boilerplate code reused from record-collection Lab
 const mongoose = require('mongoose')
 
