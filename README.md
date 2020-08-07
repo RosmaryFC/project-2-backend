@@ -7,13 +7,13 @@
 |Day 1 - Friday | Pre-work: Project Description                          | Complete
 |Day 1 - Friday | Pre-work: Wireframes / Priority Matrix / Timeline      | Complete
 |Day 2 - Saturday | Start backend logic                                  | Complete
-|Day 3 - Sunday | Complete backend and test                              | Incomplete
+|Day 3 - Sunday | Complete backend and test                              | Complete
 
 Project Schedule continued in [Frontend](https://github.com/RosmaryFC/project-2-frontend)
 
 ## Project Description
 
-Link to final project: <b>WILL ADD LATER</b>
+Link to final [project](https://project-2-backend.herokuapp.com)
 
 Introducing, Our Unit-2 project for General Assembly's SEI program.
 For Project 12, I will be creating a fullstack website for my karate school to manage students with their payments and progress.
@@ -118,13 +118,14 @@ I've broken down each part of the backend to smaller tasks below.
 | Seed Data                                  | H        | 1hr            | 9hr            | -hr         |
 | Create Models for students                 | H        | 1hr            | .5hr            | -hr         |
 | Create Models for parents                  | H        | 1hr            | .5hr            | -hr         |
-| Create Controller for students             | H        | 1hr            | -hr            | -hr         |
-| Create Controller for parents              | H        | 1hr            | -hr            | -hr         |
-| Create Routes for students                 | H        | 1hr            | -hr            | -hr         |
-| Create Routes for parents                  | H        | 1hr            | -hr            | -hr         |
-| Test routes for students                   | H        | 2hr            | -hr            | -hr         |
-| Test routes for parents                    | H        | 2hr            | -hr            | -hr         |
-| Total                                      |          | 14hrs          | -hr            | -hr         |
+| Create Controller for students             | H        | 1hr            | 1hr            | -hr         |
+| Create Controller for parents              | H        | 1hr            | 15hr            | -hr         |
+| Create Routes for students                 | H        | 1hr            | .5hr            | -hr         |
+| Create Routes for parents                  | H        | 1hr            | .5hr            | -hr         |
+| Test routes for students                   | H        | 2hr            | 2hr            | -hr         |
+| Test routes for parents                    | H        | 2hr            | 2hr            | -hr         |
+| Deploy on Heroku                           | H        | 1hr            | 12hr            | -hr         |
+| Total                                      |          | 14hrs          | 43.5hr            | -hr         |
 
 
 ## Additional Libraries
@@ -140,7 +141,61 @@ I've broken down each part of the backend to smaller tasks below.
 
 This section will include a brief code snippet of functionality that I am proud of and a brief description  
 
-* STILL BEING WORKED ON
+This piece of code is what allows you to create a guardian and select students to add as reference to guardian and also add guardian as a reference to student
+
+```
+const createGuardian = async (req,res) => {
+    try{
+        const guardianReqBody = req.body;
+
+        for (let i = 0; i < guardianReqBody.students.length; i++) {
+            const student = guardianReqBody.students[i];
+            console.log('student', student)
+
+            //split full name to firstName and lastName
+            const nameSplit = student.split(" ");
+            console.log('nameSplit', nameSplit)
+
+            //find student document with matching name
+            let studentDoc = await Student.findOne({
+                $and: [
+                    {firstName: nameSplit[0]},
+                    {lastName: nameSplit[1]}
+                ]
+            })
+
+            console.log('studentDoc', studentDoc);
+            console.log('studentDocID', studentDoc._id);
+
+            // replace name in list of students with student ID in guardian
+            guardianReqBody.students[i] = studentDoc._id;    
+            console.log('guardianReqBody', guardianReqBody);
+        }
+
+
+        //create Guardian
+        const newGuardian = await Guardian.create(guardianReqBody);
+        console.log('newGuardian', newGuardian);
+
+        for(let i = 0; i < guardianReqBody.students.length; i++) {
+            //find student document with matching name
+            let studentDoc = await Student.findById(guardianReqBody.students[i]);
+            console.log('studentDoc:' + studentDoc);
+
+            console.log('new guardian id', newGuardian._id);
+
+            //push Guardian ID to student.guardians array
+            await studentDoc.guardians.push(newGuardian._id);
+            await studentDoc.save()
+        }
+
+        // const allGuardians = await Guardian.find({}).sort({firstName:1});
+        res.status(200).json(newGuardian);
+    }catch(error){
+        res.status(400).send(error);
+    }
+}
+```
 
 
 ## Issues and Resolutions
@@ -264,9 +319,8 @@ REF: [Link](https://stackoverflow.com/questions/37576685/using-async-await-with-
 
 
 
-
-
 * ISSUE: When deploying backend to heroku and running, error appears
+* RESLOVE: fixed variable on heroku
 
 ```
 2020-08-05T05:07:33.888736+00:00 app[web.1]: Error: Cannot find module '../models/student.js'
