@@ -15,7 +15,6 @@ const findAllStudents = async (req,res) => {
     }
 }
 
-
 const createStudent = async (req,res) => {
     try{
         const newStudent = await Student.create(req.body);
@@ -36,12 +35,20 @@ const updateStudent = async (req,res) => {
     }
 }
 
-//TODO: delete the reference of the student in any guardians, If guardian has no reference to students anymore, delete guardian
+//delete the student and the reference of the student in any guardians, 
+//TODO: If guardian has no reference to students anymore, delete guardian
 const deleteStudent = async (req,res) => {
     try{
         const deleteStudent = await Student.findByIdAndDelete(req.params.id);
-        const allStudents = await Student.find({}).sort({firstName:1});
-        res.status(200).json(allStudents);
+        const guardiansArr = deleteStudent.guardians;
+        console.log('GUARDIANS ARR:', guardiansArr)
+        for(let i = 0; i < guardiansArr.length; i++) {
+            const guardian = await Guardian.findById(guardiansArr[i]);
+            console.log('GUARDIAN: ', guardian)
+            await guardian.students.pull(deleteStudent._id);
+            await guardian.save()
+        }
+        res.status(200).json(deleteStudent);
     }catch(error){
         res.status(400).send(error);
     }
@@ -61,17 +68,11 @@ const findAllGuardians = async (req,res) => {
 const findGuardianByID = async (req,res) => {
     try{
         const findGuardian = await Guardian.findById(req.params.id).populate("students");
-        console.log('guardian', findGuardian)
-        console.log('guardian type', typeof(findGuardian))
-        console.log('student type', typeof(findGuardian.students))
-        console.log('students element type', typeof(findGuardian.students[0]))
         res.status(200).json(findGuardian);
     }catch(error){
         res.status(400).send(error);
     }
 }
-
-
 
 const createGuardian = async (req,res) => {
     try{
@@ -135,22 +136,16 @@ const updateGuardian = async (req,res) => {
     }
 }
 
-//TODO: remove the references of guardians in students
+//deletes guardian and removes the references of guardian in Student.guardians array
 const deleteGuardian = async (req,res) => {
     try{
         const deleteGuardian = await Guardian.findByIdAndDelete(req.params.id);
-        // const studentsArr = deleteGuardian.students;
-        // console.log('studentsArr',studentsArr);
-        // for(let i = 0; i < studentsArr.length; i++) {
-        //     console.log('studentID', studentsArr[i]);
-        //     const student = await Student.findByIdAndUpdate(studentsArr[i]);
-        //     const guardiansArr = await student.guardians;
-        //     for(let j = 0; j < guardiansArr.length; j++){
-        //         if(guardiansArr[j] == deleleteGuardian._id){
-        //             await student.guardians.splice(j, 1);
-        //         }
-        //     }
-        // }
+        const studentsArr = deleteGuardian.students;
+        for(let i = 0; i < studentsArr.length; i++) {
+            const student = await Student.findById(studentsArr[i]);
+            await student.guardians.pull(deleteGuardian._id);
+            await student.save()
+        }
         res.status(200).send(deleteGuardian);
     }catch(error){
         res.status(400).send(error);
