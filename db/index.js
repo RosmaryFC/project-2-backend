@@ -3,8 +3,8 @@
 const mongoose = require('mongoose')
 
 // use environment URI if available
-// let MONGODB_URI = process.env.PROD_MONGODB || process.env.MONGODB_URI || 'mongodb://localhost:27017/karate'
-let MONGODB_URI = 'mongodb://localhost:27017/karate'
+let MONGODB_URI = process.env.PROD_MONGODB || process.env.MONGODB_URI || 'mongodb://localhost:27017/karate'
+// let MONGODB_URI = 'mongodb://localhost:27017/karate'
 
 // connect to database
 mongoose
