@@ -15,6 +15,15 @@ const findAllStudents = async (req,res) => {
     }
 }
 
+const findStudentByID = async (req,res) => {
+    try{
+        const findGuardian = await Student.findById(req.params.id);
+        res.status(200).json(findGuardian);
+    }catch(error){
+        res.status(400).send(error);
+    }
+}
+
 const createStudent = async (req,res) => {
     try{
         const newStudent = await Student.create(req.body);
@@ -28,8 +37,8 @@ const createStudent = async (req,res) => {
 const updateStudent = async (req,res) => {
     try{
         const student = await Student.findByIdAndUpdate(req.params.id, req.body, {new:true})
-        const allStudents = await Student.find({}).sort({firstName:1});
-        res.status(200).json(allStudents);
+        // const allStudents = await Student.find({}).sort({firstName:1});
+        res.status(200).json(student);
     }catch(error){
         res.status(400).send(error);
     }
@@ -155,5 +164,15 @@ const deleteGuardian = async (req,res) => {
 
 
 
-module.exports = {findAllStudents, createStudent, updateStudent, deleteStudent,
-                    findAllGuardians, findGuardianByID, createGuardian, updateGuardian, deleteGuardian };
+module.exports = {
+    findAllStudents,
+    findStudentByID,
+    createStudent,
+    updateStudent,
+    deleteStudent,
+    findAllGuardians,
+    findGuardianByID,
+    createGuardian,
+    updateGuardian,
+    deleteGuardian,
+};
